@@ -1,0 +1,17 @@
+# Default values for orders.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+name: orders
+image: quay.io/openshiftlabs/app-mod-orders:1.0
+database:
+  name: orders-db
+  url: jdbc:postgresql://orders-db:5432/orders-db
+  username: redhat
+  password: redhat
+resources:
+  limits:
+    memory: 512Mi
+  requests:
+    cpu: 10m
+    memory: 512Mi

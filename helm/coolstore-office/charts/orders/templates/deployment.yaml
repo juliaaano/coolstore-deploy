@@ -1,0 +1,53 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ .Values.name }}
+  labels:
+    app.kubernetes.io/name: {{ .Values.name }}
+    app.kubernetes.io/part-of: backend
+    app.openshift.io/runtime: spring-boot
+  annotations:
+    app.openshift.io/connects-to: {{ .Values.database.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      deployment: {{ .Values.name }}
+  template:
+    metadata:
+      labels:
+        deployment: {{ .Values.name }}
+    spec:
+      containers:
+      - name: {{ .Values.name }}
+        image: {{ .Values.image }}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+        resources:
+          {{- toYaml .Values.resources | nindent 10 }}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop: ["ALL"]
+        volumeMounts:
+        - name: {{ .Values.name }}
+          mountPath: /deployments/config
+      volumes:
+        - name: {{ .Values.name }}
+          secret:
+            secretName: {{ .Values.name }}
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
