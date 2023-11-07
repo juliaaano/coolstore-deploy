@@ -1,0 +1,21 @@
+{{- if .Values.coolstoreShop }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: coolstore-shop
+spec:
+  project: {{ .Values.coolstoreShop.project }}
+  source:
+    repoURL: {{ .Values.coolstoreShop.source.repoURL | required "coolstoreShop.source.repoURL is required" }}
+    targetRevision: {{ .Values.coolstoreShop.source.targetRevision }}
+    path: {{ .Values.coolstoreShop.source.path }}
+    helm:
+      values: |
+        deployer: {{ .Values.deployer }}
+  destination:
+    namespace: {{ .Values.coolstoreShop.destination.namespace }}
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated: {}
+{{- end }}

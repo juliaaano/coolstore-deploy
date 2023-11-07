@@ -1,0 +1,28 @@
+# Default values for bootstrap.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deployer:
+  domain: apps.cluster-guid.sandbox.opentlc.com
+
+coolstoreOffice:
+  project: default
+  source:
+    repoURL: ""
+    targetRevision: main
+    path: helm/coolstore-office
+  destination:
+    namespace: coolstore-office
+
+coolstoreShop:
+  project: default
+  source:
+    repoURL: ""
+    targetRevision: main
+    path: helm/coolstore-shop
+  destination:
+    namespace: coolstore-shop
+
+amqstreams:
+  channel: stable
+  startingCSV: amqstreams.v2.5.1-1

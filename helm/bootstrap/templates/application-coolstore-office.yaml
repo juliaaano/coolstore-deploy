@@ -1,0 +1,21 @@
+{{- if .Values.coolstoreOffice }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: coolstore-office
+spec:
+  project: {{ .Values.coolstoreOffice.project }}
+  source:
+    repoURL: {{ .Values.coolstoreOffice.source.repoURL | required "coolstoreOffice.source.repoURL is required" }}
+    targetRevision: {{ .Values.coolstoreOffice.source.targetRevision }}
+    path: {{ .Values.coolstoreOffice.source.path }}
+    helm:
+      values: |
+        deployer: {{ .Values.deployer }}
+  destination:
+    namespace: {{ .Values.coolstoreOffice.destination.namespace }}
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated: {}
+{{- end }}
