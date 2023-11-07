@@ -1,0 +1,45 @@
+# Default values for coolstore-shop.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+inventory:
+  inventoryService:
+    name: inventory  
+
+catalog-service:
+  route:
+    enabled: true
+  inventoryService:
+    name: inventory
+
+globex-ui:
+  globexUi:
+    route:
+      enabled: true
+    env:
+      trackActivityService:
+        url: http://activity-tracking:8080
+        postActivityPath: /track
+      catalogService:
+        url: http://catalog:8080
+        getProductsPath: /services/products
+        getProductListPath: /services/product/list/
+      recommendationEngine:
+        url: http://recommendation-engine:8080
+        getRecommendedProductsPath: /score/product
+
+recommendation-engine:
+  route:
+    enabled: true
+  kafka:
+    bootstrapServer: kafka-kafka-bootstrap:9092
+
+activity-tracking:
+  route:
+    enabled: true
+  kafka:
+    bootstrapServer: kafka-kafka-bootstrap:9092
+
+order-placement:
+  kafka:
+    bootstrapServer: kafka-kafka-bootstrap:9092
