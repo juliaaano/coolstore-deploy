@@ -4,5 +4,5 @@ kind: Namespace
 metadata:
   name: {{ .Release.Namespace }}
   annotations:
-    openshift.io/display-name: "Coolstore"
-    openshift.io/description: "Coolstore namespace description."
+    openshift.io/display-name: "Coolstore Office"
+    openshift.io/description: "Coolstore backoffice application."
