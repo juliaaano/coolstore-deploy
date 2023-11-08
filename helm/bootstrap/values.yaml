@@ -25,4 +25,4 @@ coolstoreShop:
 
 amqstreams:
   channel: stable
-  startingCSV: amqstreams.v2.5.1-1
+  startingCSV: ""
