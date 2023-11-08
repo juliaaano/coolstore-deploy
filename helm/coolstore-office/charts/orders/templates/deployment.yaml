@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/part-of: backend
     app.openshift.io/runtime: spring-boot
   annotations:
-    app.openshift.io/connects-to: {{ .Values.database.name }}
+    app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"{{ .Values.database.name }}"}]'
 spec:
   replicas: 1
   selector:

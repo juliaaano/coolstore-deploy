@@ -8,7 +8,10 @@ metadata:
     app.kubernetes.io/part-of: frontend
     app.openshift.io/runtime: spring-boot
   annotations:
-    app.openshift.io/connects-to: '["{{ .Values.inventory }}", "{{ .Values.orders }}", "{{ .Values.customers }}"]'
+    app.openshift.io/connects-to: >-
+      [{"apiVersion":"apps/v1","kind":"Deployment","name":"{{ .Values.inventory }}"},
+      {"apiVersion":"apps/v1","kind":"Deployment","name":"{{ .Values.orders }}"},
+      {"apiVersion":"apps/v1","kind":"Deployment","name":"{{ .Values.customers }}"}]
 spec:
   replicas: 1
   selector:
